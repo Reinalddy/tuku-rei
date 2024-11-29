@@ -81,10 +81,10 @@ const Sidebar = () => {
            <h1 className='text-2xl font-bold mb-10 mt-4'>Reinalddy Store</h1>
 
             <section>
-                <input type="text"  className="border-2 rounded px-2 sm:mb-0" placeholder='Search product'
+                <input type="text"  className="border-2 rounded px-2 py-3 w-full sm:mb-0" placeholder='Search product'
                 value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}/>
 
-                <div className='flex justify-center items-center'>
+                <div className='flex justify-center items-center mt-3'>
                     <input type="text" className='border-2 mr-2 px-5 py-3 mb-3 w-full' placeholder='min' 
                     value={minPrice ?? ''} onChange={(e) => handleMinPriceChange(e)}/>
 
