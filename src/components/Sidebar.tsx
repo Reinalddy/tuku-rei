@@ -40,7 +40,7 @@ const Sidebar = () => {
                 const response = await fetch('https://dummyjson.com/products');
                 const data: FetchResponse = await response.json();
                 const uniqueCategories = Array.from(new Set(data.products.map((product) => product.category)));
-                console.log(uniqueCategories);
+                // console.log(uniqueCategories);
                 setCategories(uniqueCategories);
             } catch (error) {
                 console.error(error);
@@ -62,6 +62,18 @@ const Sidebar = () => {
 
     const handleRadioCategoryChange = (category: string) => {
         setSelectedCategory(category);
+    }
+
+    const handleKeywordClick = (keyword: string) => {
+        setKeyword(keyword);
+    }
+
+    const handleResetFilters = () => {
+        setSearchQuery('');
+        setSelectedCategory('');
+        setMinPrice(undefined);
+        setMaxPrice(undefined);
+        setKeyword('');
     }
 
     return (
@@ -88,7 +100,9 @@ const Sidebar = () => {
                     {categories.map((category, index) => 
                         <label key={index} className='block mb-2'>
                             <input type="radio" name='category' value={category} className='mr-2 w-[16px] h-[16px]' 
-                            onChange={(e) => handleRadioCategoryChange(category)}/>
+                            onChange={() => handleRadioCategoryChange(category)}
+                            checked={selectedCategory === category}
+                            />
 
                             {category.toUpperCase()}
                         </label>
@@ -102,14 +116,16 @@ const Sidebar = () => {
                     <h2 className='text-xl font-semibold mb-3'>keywords</h2>
 
                     {keywords.map((keyword, index) => 
-                        <button key={index} className='block mb-2 px-4 py-2 w-full text-left border rounded hover:bg-gray-200'>
+                        <button key={index} className='block mb-2 px-4 py-2 w-full text-left border rounded hover:bg-gray-200'
+                        onClick={() => handleKeywordClick(keyword)}>
                             {keyword.toUpperCase()}
                         </button>
                     )}
 
                 </div>
 
-                <button className='w-full mb-[4rem] py-2 bg-black text-white rounded mt-5'>
+                <button className='w-full mb-[4rem] py-2 bg-black text-white rounded mt-5'
+                onClick={handleResetFilters}>
                     Reset Filters
                 </button>
 
